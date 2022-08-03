@@ -11,7 +11,16 @@ class LIST:
         else:
             self.arr = content
 
+    def __call__(self):
+        return self.arr
+
     "make LIST per se subscriptable, aka, can use LIST_A'[index]' "
     def __getitem__(self,idx):
         "should we use 'yield' so that it can process async'ly?"
-        return self.arr[idx]
+        if isinstance(idx, list) or isinstance(idx, LIST):
+            idxs = idx
+            # very slow
+            arr = self.arr # slightly faster then self[i]
+            return LIST([arr[i] for i in idxs])
+        else:
+            return self.arr[idx]
