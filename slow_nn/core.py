@@ -18,9 +18,8 @@ class LIST:
     def __getitem__(self,idx):
         "should we use 'yield' so that it can process async'ly?"
         if isinstance(idx, list) or isinstance(idx, LIST):
-            idxs = idx
             # very slow
-            arr = self.arr # slightly faster then self[i]
-            return LIST([arr[i] for i in idxs])
+            arr = self.arr # slightly faster then self[i] ?
+            return LIST([arr[i] for i in idx])
         else:
             return self.arr[idx]
